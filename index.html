@@ -1,0 +1,442 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>KTL Learn Advance - Twilioハンズオン</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="ktl-learn-advance-twilio-"
+                  title="KTL Learn Advance - Twilioハンズオン"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="はじめに" duration="0">
+        <p class="image-container"><img style="width: 601.70px" src="img/97a6d26c627201ba.jpeg"></p>
+<p>この手順はKTL Learn Advanceにて使用するハンズオン手順です。</p>
+<p>この手順は公開しますので復習や展開し自由に使って頂いて構いません。</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Twilioとは" duration="0">
+        <p>こちらに詳しく書かれていますが、「電話・SMS をはじめとする各種コミュニケーションを実現するためのAPIプラットフォームサービスです。」<br><a href="https://cloudapi.kddi-web.com/magazine/twilio-lesson/what-is-twilio-of-the-communication-api" target="_blank">https://cloudapi.kddi-web.com/magazine/twilio-lesson/what-is-twilio-of-the-communication-api</a></p>
+<p class="image-container"><img style="width: 601.70px" src="img/65c786846a03f121.png"></p>
+<p>電話以外にも多くの機能があるのですが、今回は電話の機能について触ってみようと思います。(SMSやIP PBXなど他の機能に興味のあった方ごめんなさい)</p>
+<h2 is-upgraded><strong>料金について</strong></h2>
+<p>料金については次のとおりです。</p>
+<p><a href="https://cloudapi.kddi-web.com/price" target="_blank">Twilioの料金・価格｜Twilio - KDDI Web Communications</a></p>
+<p>なお、行政機関で利用する場合は請求書払いが妥当かと思われます。</p>
+<p><a href="https://support.twilio.com/hc/en-us/articles/1260803420529-%E3%82%A4%E3%83%B3%E3%83%9C%E3%82%A4%E3%82%B9%E6%94%AF%E6%89%95-%E8%AB%8B%E6%B1%82%E6%9B%B8-%E3%81%AE%E8%A8%AD%E5%AE%9A%E3%83%97%E3%83%AD%E3%82%BB%E3%82%B9" target="_blank">インボイス支払(請求書)の設定プロセス – Twilio Support</a></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Twilioを実際に導入する際は" duration="0">
+        <p>Twilioの導入・契約は各所属ごとに行なっていただきますが、先方の担当者をご紹介しますので一度デジタル戦略部にご連絡ください。</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="トライアルアカウントについて" duration="0">
+        <p>Twilio では、サインアップ後に一定額分トライアル(お試し)が可能なトライアルアカウントが用意されています。</p>
+<p>本日のハンズオンではこちらのトライアルアカウントを利用します。</p>
+<p>以降手順を説明していきますが、以下のリンクも適宜参考にしてください。</p>
+<ul>
+<li><a href="https://cloudapi.kddi-web.com/magazine/twilio-lesson/account-types-and-how-to-create-a-free-account" target="_blank">【Twilio講座 入門編②】アカウントの種類と無料アカウント作成方法</a></li>
+<li><a href="https://jp.twilio.com/docs/usage/tutorials/how-to-use-your-free-trial-account" target="_blank">無料のTwilioトライアルアカウントの使用方法(英語)</a></li>
+<li><a href="https://support.twilio.com/hc/en-us/articles/360046044073-%E3%83%88%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%AB%E3%82%A2%E3%82%AB%E3%82%A6%E3%83%B3%E3%83%88%E5%88%B6%E9%99%90%E4%BA%8B%E9%A0%85" target="_blank">トライアルアカウント制限事項</a></li>
+<li><a href="https://cloudapi.zendesk.com/hc/ja/articles/206365521-%E7%84%A1%E6%96%99%E3%83%88%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%AB%E4%B8%AD-%E4%BD%BF%E7%94%A8%E7%8A%B6%E6%B3%81-%E3%82%92%E8%A6%8B%E3%82%8B%E3%81%A8%E6%96%99%E9%87%91%E3%81%8C%E8%A1%A8%E7%A4%BA%E3%81%95%E3%82%8C%E3%81%A6%E3%81%84%E3%81%BE%E3%81%99" target="_blank">無料トライアル中「使用状況」を見ると料金が表示されています</a></li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="トライアルアカウントの作成" duration="0">
+        <p>Twilioのサイトにアクセスします。</p>
+<p><a href="https://cloudapi.kddi-web.com/" target="_blank">https://cloudapi.kddi-web.com/</a></p>
+<p>「無料アカウント作成」を選択します。</p>
+<p class="image-container"><img style="width: 601.70px" src="img/4adb2bda24c4b665.png"></p>
+<p>「利用規約、重要事項説明、プライバシーポリシーに同意します」にチェックし、「無料アカウントを作成する」を選択します。</p>
+<p class="image-container"><img style="width: 601.70px" src="img/a50caf90aaf8e53.png"></p>
+<p>アカウント作成のために必要な氏名、メールアドレス(ここでは〜@kobecity.onmicrosoft.comのアドレスを使用)、パスワード(16字以上。ただし同じ文字を3回以上続けて使用できません)を入力し、「株式会社KDDI〜に同意します」にチェックのうえ「無料トライアルを始めましょう」を選択します。</p>
+<p class="image-container"><img style="width: 601.70px" src="img/212f608622252a20.png"></p>
+<p>登録したメールアドレスに認証用のメールが送信されます。</p>
+<p class="image-container"><img style="width: 601.70px" src="img/f2797236f496075d.png"></p>
+<p>受信した認証用のメールに記載のリンクを選択します。</p>
+<p class="image-container"><img style="width: 601.70px" src="img/4c7e1cb28e3bd0c0.png"></p>
+<p>検証用の電話番号(お手持ちの携帯電話等の番号)を入力し、「Verify」を選択します。</p>
+<aside class="warning"><p>トライアルアカウントでは検証された電話番号からの発信のみを受けることができます。</p>
+</aside>
+<p class="image-container"><img style="width: 601.70px" src="img/3d63299c72110a25.png"></p>
+<p>指定した電話番号にSMSで検証コードが送信されるので、それを入力し「Submit」を選択します。</p>
+<p class="image-container"><img style="width: 601.70px" src="img/bc37c8b4ce8082c5.png"></p>
+<p>トライアルアカウントの作成が完了しました。</p>
+<p class="image-container"><img style="width: 601.70px" src="img/b9a64e59bafa0d50.png"></p>
+<p>作成完了ページのアンケートに回答し「Get Started with Twilio」を選択します。</p>
+<p class="image-container"><img style="width: 306.46px" src="img/5a2249e7dd0c849d.png"></p>
+<p>ダッシュボード画面が表示されます。</p>
+<p class="image-container"><img style="width: 601.70px" src="img/f1540b3ac6ee0049.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="トライアル用の電話番号を取得する" duration="0">
+        <p>トライアル用の電話番号を取得するため「Get a Trial Number」を選択します。</p>
+<p class="image-container"><img style="width: 601.70px" src="img/1d06c4a896417dfe.png"></p>
+<p>候補の番号が表示されるので「この番号を選択」を選択します。</p>
+<aside class="special"><p>ここで選択できるのはアメリカの電話番号のみとなります。今回のハンズオンではこちらの番号を使用します。</p>
+<p>日本の番号を取得する場合は以下の手続きが必要となります。</p>
+<p><a href="https://qiita.com/mobilebiz/items/8c51ac4dce7baa49aa36" target="_blank">Twilio上で日本の電話番号を購入する方法（2021年9月版）</a></p>
+<p>なお、購入できる番号は、050 / 0120 / 0800 から始まる番号です。</p>
+</aside>
+<p class="image-container"><img style="width: 601.70px" src="img/c56bc41df81d53d1.png"></p>
+<p>電話番号の取得が完了しました。</p>
+<p>「終了」を選択するとダッシュボード画面に戻ります。</p>
+<p class="image-container"><img style="width: 601.70px" src="img/77d0c18bbfc3869f.png"></p>
+<p>ダッシュボードには先ほど取得した電話番号とトライアルアカウントの利用可能額が表示されています。</p>
+<p class="image-container"><img style="width: 601.70px" src="img/728ce6bb04d6dfa5.png"></p>
+<aside class="warning"><ul>
+<li>トライアルアカウントでは電話番号は1つしか所有できません。上記手順で割り当てた電話番号とは異なる番号を取得するには、まず Numbers のページで現在の番号を解放する必要があります。</li>
+<li>アカウントをアップグレードすると、トライアル番号が引き継がれ、現在の Voice または SMS 料金に従って毎月課金されます。</li>
+<li>トライアルアカウントで電話番号が 30日以上使用されていない場合、削除される可能性があります。ただし削除されたあともトライアル残高が許す限り、新しい電話番号を購入することができます。電話番号はアカウントをアップグレードすることで引き続き利用することができます。</li>
+<li>トライアルアカウントでの1回の発信時間は10分までです。</li>
+</ul>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="ハンズオン① - 概要" duration="0">
+        <p>ハンズオン①では以下のことを行います。</p>
+<ol type="1" start="1">
+<li>「こんにちは」と話す仕組みを構築</li>
+<li>神戸市の家庭ごみの分別を案内する仕組みを構築</li>
+</ol>
+<p class="image-container"><img style="width: 377.37px" src="img/984f944662467b34.jpeg"></p>
+<p>(引用元) <a href="https://www.city.kobe.lg.jp/a04164/kurashi/recycle/gomi/dashikata/shigen/index.html" target="_blank">https://www.city.kobe.lg.jp/a04164/kurashi/recycle/gomi/dashikata/shigen/index.html</a></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="ハンズオン① - Flowを作成" duration="0">
+        <p>ホーム画面右側のメニューから「Studio」を選択します。</p>
+<p class="image-container"><img style="width: 601.70px" src="img/eb251ae22f4539b7.png"></p>
+<p>「Create a flow」を選択します。</p>
+<p class="image-container"><img style="width: 601.70px" src="img/28d81a4bea48eafb.png"></p>
+<p>これから作成するFlowの名前を入力し「Next」を選択します。(ここでは「KTLハンズオン1」とします。)</p>
+<p class="image-container"><img style="width: 601.70px" src="img/9bda700de482d0f1.png"></p>
+<p>「Start from scratch.」にチェックが入っていることを確認し「Next」を選択します。</p>
+<p class="image-container"><img style="width: 480.00px" src="img/520f56f9301a4dc0.png"></p>
+<p>Flowの作成画面(Editor画面)が開きます。</p>
+<p class="image-container"><img style="width: 601.70px" src="img/84837978e8a5d3b2.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="ハンズオン① -「こんにちは」と返す仕組みを作ってみる" duration="0">
+        <p>Editor画面右側の&#39;WIDGET LIBRARY&#39;から「Say/Play」を画面中央&#39;Trigger&#39;の下付近までドラッグ&amp;ドロップで移動させます。</p>
+<p class="image-container"><img style="width: 601.70px" src="img/19d61f1683e8db60.png"></p>
+<p class="image-container"><img style="width: 601.70px" src="img/60e8e6ad235fcd2e.png"></p>
+<p>Trigger直下の「Incoming Call」から垂れている赤い丸印を「Say/Play」左上の灰色の丸印へドラッグ&amp;ドロップして繋げます。</p>
+<p class="image-container"><img style="width: 412.32px" src="img/3629ae2f46d0a6df.png"></p>
+<p class="image-container"><img style="width: 342.00px" src="img/cf31156a4637063d.png"></p>
+<p>Editor画面右側、SAY/PLAYの設定画面の&#39;TEXT TO SAY&#39;の欄に「こんにちは」と入力します。</p>
+<p class="image-container"><img style="width: 339.33px" src="img/4a2bddb1a0ef801b.png"></p>
+<p>‘LANGUAGE&#39;の欄を「JAPANESE」に設定します。</p>
+<p>&#39;MESSAGE VOICE&#39;の欄は好みの声を選択します。</p>
+<p>それぞれを選択したら「Save」を選択します。</p>
+<p class="image-container"><img style="width: 304.20px" src="img/8c55bc27e746d7d9.png"></p>
+<p>Editor画面右上の「Publish」を選択</p>
+<p class="image-container"><img style="width: 601.70px" src="img/c92bdbc0c5b72332.png"></p>
+<p>英語で「フローにn個の改訂を加えました。現在公開されているフローに現在関与しているユーザーは、引き続きそのフローを使用します。公開してもよろしいですか？」と尋ねられるので「 OK」を選択します。</p>
+<p class="image-container"><img style="width: 601.70px" src="img/a5772a08e30c2243.png"></p>
+<p>電話番号に作成したFlowを割り当てます。</p>
+<p>Editor画面右上の検索ボックスで「電話番号」と検索し、表示された検索結果から&#39;電話番号&#39;を選択します。</p>
+<p class="image-container"><img style="width: 601.70px" src="img/31dd486d601f77f8.png"></p>
+<p>対象の番号（ひとつだけ表示されているはずです）を選択します。</p>
+<p class="image-container"><img style="width: 601.70px" src="img/a1f9e12d144baf15.png"></p>
+<p>開いた画面を下にスクロールしていくと&#39;Voive&amp;Fax&#39;という項目があります。</p>
+<p>その項目内の&#39;A CALL COMES IN&#39;のドロップダウンリストを「Webhook」から「 Studio Flow」に変更します。</p>
+<p class="image-container"><img style="width: 601.70px" src="img/35c0fb28f044f48.png"></p>
+<p>‘Webhook&#39;が選択されているときはURLが表示されていたテキストボックスに&#39;‘Select a Flow&#39;と変化します。これを選択し、開いたドロップダウンリストから作成したFlow(ここでは「KTLハンズオン」)を選択します。</p>
+<p class="image-container"><img style="width: 601.70px" src="img/1a638830cab8f70c.png"></p>
+<p>画面下の「Save」を選択します。</p>
+<p>これでトライアル用の電話番号とFlowが紐付き、受電時にFlowが動作するようになります。</p>
+<p class="image-container"><img style="width: 601.70px" src="img/181e9b2b9c21eb0c.png"></p>
+<p>確認のため電話をかけてみます。</p>
+<p>なお、取得した電話番号はアメリカの番号のため、国際電話で架電する必要があります。</p>
+<aside class="warning"><p>取得した電話番号はアメリカの番号のため、国際電話で架電する必要があります。</p>
+<p>通話料がかかりますのでご注意ください。</p>
+<p>(参考)主要キャリアの通話料 ※詳細は各リンク先をご確認ください。</p>
+<ul>
+<li><a href="https://www.nttdocomo.co.jp/service/world/worldcall/call/" target="_blank">ドコモ ... 34円/30秒</a></li>
+<li><a href="https://www.au.com/mobile/service/global/call/charge/america/" target="_blank">au ... 20円/30秒</a></li>
+<li><a href="https://www.softbank.jp/mobile/service/global/outgoing/call/international-calls/" target="_blank">ソフトバンク ... 39円/30秒</a></li>
+<li><a href="https://network.mobile.rakuten.co.jp/guide/international-call/#japan" target="_blank">楽天モバイル ... 34円/30秒</a></li>
+</ul>
+</aside>
+<p>架電の際は、Twilioの番号の前に、「0101」(国際電話:010、国番号(米国):1)を入力します。</p>
+<p class="image-container"><img style="width: 266.17px" src="img/4e8029c5d453883f.png"></p>
+<p>架電すると、架電先のアカウントがトライアルアカウントである旨、アカウントをアップグレード(本登録)するとこのメッセージは流れなく旨がアナウンスがされ、何かボタンを押すように促されます。</p>
+<p>(携帯電話の機種によりますが)プッシュ操作モードにし、どれか数字キーを押すとご自身で設定したFlowが再生されます。</p>
+<p>ここでは「こんにちは」というアナウンスが流れ自動的に電話が切れることが確認できればOKです。</p>
+<p>Twilioのホーム画面(Dashboard)に戻り、&#39;TRIAL BALANCE&#39;の項目を見ると、当初より残額が減っていることがわかります。</p>
+<p>ここが¥0になるまでトライアルアカウントが利用できます。</p>
+<p class="image-container"><img style="width: 601.70px" src="img/2a27f40574248c45.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="ハンズオン① - 自動応答の仕組みを作ってみる" duration="0">
+        <p>Studio画面を開き、作成したFlow(ここでは「KTLハンズオン」)のEditor画面を開きます。</p>
+<p class="image-container"><img style="width: 601.70px" src="img/af383186e76b823c.png"></p>
+<p>以下のゴミ出しのフローチャートを参考に自動応答システムを作成してみましょう。</p>
+<p><a href="https://www.city.kobe.lg.jp/a04164/kurashi/recycle/gomi/dashikata/shigen/index.html" target="_blank">https://www.city.kobe.lg.jp/a04164/kurashi/recycle/gomi/dashikata/shigen/index.html</a></p>
+<p>まず、&#39;say_play_1&#39;を選択し、&#39;TEXT TO SAY&#39;の「こんにちは」を「こちらは神戸市家庭ごみ分別フローチャートです。」に書き換えます。</p>
+<p>書き換えたら「Save」を選択します。</p>
+<p class="image-container"><img style="width: 601.70px" src="img/10a79a52e1153901.png"></p>
+<p>‘SAY/PLAY&#39;の左にある「＜」ボタンで前の画面に戻ります。</p>
+<p class="image-container"><img style="width: 281.97px" src="img/35ff42999c3e8069.png"></p>
+<p>Editor画面右側の&#39;WIDGET LIBRARY&#39;から「Gather Input On Call」を&#39;SAY/PLAY&#39;の下付近までドラッグ&amp;ドロップで移動させます。</p>
+<p>「Gather Input On Call」ではユーザーからのプッシュ入力を受け付けることができます。</p>
+<p class="image-container"><img style="width: 601.70px" src="img/62cf623ad270f691.png"></p>
+<p>画面右側が&#39;GATHER INPUT ON CALL&#39;の設定画面に切り替わります。</p>
+<p>その中の&#39;TEXT TO SAY&#39;に以下のように入力します。</p>
+<pre><code>出したいゴミを４５リットルの袋に入れて口をしっかり結べますか?
+結べる場合は１とシャープを、
+結べない場合は２とシャープを、選択してください。</code></pre>
+<aside class="special"><p>読み上げ文を作成するときは音声ボットの特性を踏まえ、文章とは異なる書き方をした方が良い場合があります。</p>
+<p>例えば、読み上げの際に少し間を開けたければ句読点を入れます。</p>
+<p>また、数字や漢字など、読み方が期待と異なる場合はひらがなで入力するようにします。</p>
+</aside>
+<p>‘LANGUAGE&#39;、&#39;MESSAGE VOICE&#39; も直前の ‘say_play_1&#39; と同じように設定します。</p>
+<p>設定後「Save」を選択し保存します。<img style="width: 601.70px" src="img/6a54e41f06587084.png"></p>
+<p>‘say_play_1&#39; の左下 &#39;Audio Complete&#39; の下に垂れているグレーの丸をドラッグ&amp;ドロップし、‘gather_1&#39; の左上のグレーの丸と繋げます。</p>
+<p class="image-container"><img style="width: 245.50px" src="img/6584445508af0bcb.png"></p>
+<p>「Split Based On...」を&#39;gather_1&#39;の下に挿入します。</p>
+<p>「Split Based On...」では、gatherが受け付けたユーザーからの入力を下に次の処理へ繋げます。</p>
+<p class="image-container"><img style="width: 601.70px" src="img/72bf41345b358891.png"></p>
+<p>‘gather_1&#39; 右下の &#39;User Pressed Keys&#39; と、&#39;split_1&#39;とを繋ぎます。</p>
+<p class="image-container"><img style="width: 296.49px" src="img/f03e303ce39ac34a.png"></p>
+<p>‘split_1&#39; を選択し、&#39;VARIABLE TO TEST&#39;のドロップダウンリストから&#39;gather_1&#39;の&#39;Digits&#39;を選択します。</p>
+<p>選択したら「Save」で保存します。</p>
+<p>これでgatherの内容を取得する設定ができました。</p>
+<p class="image-container"><img style="width: 601.70px" src="img/4ab373943206f578.png"></p>
+<p>gatherの内容を取得した後の処理を追加するため、&#39;split_1&#39; の右下の「New」を選択します。</p>
+<p>Newを選択し下に表示されるダイアログの「Condition Matches」を選択肢ます。</p>
+<p class="image-container"><img style="width: 421.50px" src="img/a1c045a539fa2818.png"></p>
+<p>‘Condition Matches&#39; に対応する項目として、SPLIT BASED ON... の設定画面に&#39;IF VALUE EQUAL TO...&#39; という欄が表示されます。</p>
+<p>既に選択されている「Equal To」は&#39;その下の「Enter Value...」の値と一致した場合&#39;を指します。</p>
+<p class="image-container"><img style="width: 601.70px" src="img/608a24a37bdad798.png"></p>
+<p>直前の&#39;gather_1&#39;では「結べる場合は１」「結べない場合は２」を選択させていたので、&#39;Enter Value...&#39;は１が選択された場合と２が選択された場合の2パターンを用意する必要があります。</p>
+<p>‘split_1&#39;の次の動作を先に準備します。</p>
+<p>なお、フローチャートを参考に、次の動作は下図のようになります。</p>
+<p class="image-container"><img style="width: 526.50px" src="img/9103880e0d23b06d.png"></p>
+<p>まず、‘SPLIT BASED ON...&#39;の設定画面左上(&#39;SPLIT BASED ON&#39;と書かれた表題の左横)の「＜」を選択します。</p>
+<p>上図フローチャートに従いFlowを設定します。</p>
+<p>まず配置は以下のとおり。</p>
+<p class="image-container"><img style="width: 601.70px" src="img/876a3348acfc75ec.png"></p>
+<p>設定は次のとおり。</p>
+<p>なお、Flow間を繋ぐ設定を行っていないため各設定を行っても「Save」を選択し保存することができません。</p>
+<pre><code>&lt;say_play_2&gt;
+・SAY OR PLAY MESSAGE OR DIGITS ... Say a Message
+・TEXT TO SAY ... お捨てになりたいゴミは大型ゴミです。大型ゴミ受付センターにお問い合わせください。
+・LANGUAGE ... Japanese
+・MESSAGE VOICE ... (好みの声)
+&lt;gather_2&gt;
+・SAY OR PLAY MESSAGE OR DIGITS ... Say a Message
+・TEXT TO SAY ... お捨てになりたいゴミが単品で５キロ以下の場合は１とシャープを、単品で５キロを超える場合は２とシャープを、選択してください。
+・LANGUAGE ... Japanese
+・MESSAGE VOICE ... (好みの声)
+&lt;split_2&gt;
+・VARIABLE  TO TEST ... wigits.gather_2.Digits</code></pre>
+<p>Flowを繋げていきます。</p>
+<p>まずはsplit_1を選択します。</p>
+<p>‘IF VALUE EQUAL_TO 1&#39;の下は下記画像のように「1」「gather_2」を入力・選択します。</p>
+<p class="image-container"><img style="width: 308.01px" src="img/981925195e9cd65c.png"></p>
+<p>他のFlowも繋げると以下のようになります。</p>
+<p class="image-container"><img style="width: 601.70px" src="img/5aa733473a2a7de3.png"></p>
+<p>この調子で可能な範囲でフローチャートを再現してみてください。</p>
+<p>なお、次のステップがセリフで完結する場合は&#39;Say/Play&#39;、選択肢の場合は ‘Gather Input On Call&#39;を挿入します。</p>
+<aside class="special"><p>実際は入力がなかったり、誤った入力がなされるケースもあります。</p>
+<p>今回は設定しませんでしたが、各ステップの「Usdr Said Something」「No Input」「No Condition Matches」に続くステップも本番では考慮する必要があります。</p>
+</aside>
+<p>Flowの設定が終わったら、画面右上の「Publish」から公開の設定を行ってください。</p>
+<p>架電し想定どおりの動作が確認できればOKです。</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="ハンズオン② - 概要" duration="0">
+        <p>ハンズオン②では、電話の発信者のプッシュ入力に応じてデータベースに記録する簡単な仕組みを構築してみます。</p>
+<p>今回はデータベースをShare Point、その繋ぎをPower Automateで実装します。</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="ハンズオン② - SharePointリストの準備" duration="0">
+        <p>Microsoft365からSharePointを開きます。</p>
+<p>SharePointメニュー画面の左上「サイトの作成」を選択します。</p>
+<p class="image-container"><img style="width: 601.70px" src="img/a301d5dd59faf7be.png"></p>
+<p>サイト名には一位性のある名前を入れてください(ドメイン内で重複していると登録できないため)。</p>
+<p>言語の選択は&#39;日本語&#39;に。あとは変更せず「次へ」を選択しサイトを作成します。</p>
+<p>次に、作成されたサイトの左上から「新規」→「リスト」を選択してください。</p>
+<p class="image-container"><img style="width: 601.70px" src="img/964d67814c896fb8.png"></p>
+<p>「空白のリスト」を選択してください。</p>
+<p class="image-container"><img style="width: 469.50px" src="img/9303eff094affc96.png"></p>
+<p>名前を設定し、「作成」を選択してください。</p>
+<p class="image-container"><img style="width: 445.50px" src="img/128736a903ddfbb6.png"></p>
+<p>作成されたリストに「タイトル」という列が自動的に作成されているため、こちらを「証明書番号」に変更する。</p>
+<p>「タイトル」の右側の▽から「列の設定」→「名前の変更」と進み名前を変更してください。</p>
+<p class="image-container"><img style="width: 601.70px" src="img/8f1aa5767eae1cdf.png"></p>
+<p>「証明書番号」列の右側の「+ 列の追加」→「一行テキスト」を選択します。</p>
+<p>列の名前は「必要通数」としてください。</p>
+<p class="image-container"><img style="width: 601.70px" src="img/95dfd543c663f3ec.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="ハンズオン② - Power Automate の設定" duration="0">
+        <p>Microsoft365からPower Automateを開きます。</p>
+<p>新しいフロー→インスタントクラウドフローを選択してください。</p>
+<p class="image-container"><img style="width: 601.70px" src="img/629b061980d468d4.png"></p>
+<p>画面右側&#39;このフローのトリガーする方法を選択&#39;から「HTTP要求の受信時」を選択し「作成」を選択してください。</p>
+<p class="image-container"><img style="width: 601.70px" src="img/aa4ec1db0cb18669.png"></p>
+<p>フロー作成画面が表示されるので「+新しいステップ」を選択します。</p>
+<p class="image-container"><img style="width: 601.70px" src="img/4e06037d11ea349a.png"></p>
+<p>検索バーに「変数を初期化」と入力すると、候補のアクションに「変数を初期化する」と表示されますので、これを選択します。</p>
+<p class="image-container"><img style="width: 601.70px" src="img/93983fbd4918088.png"></p>
+<p>名前の欄に「id」と入力します。</p>
+<p>種類の欄はドロップダウンリストから「文字列」を選択します。</p>
+<p class="image-container"><img style="width: 601.70px" src="img/84d63a46d2d04204.png"></p>
+<p>値の欄を選択すると右側に値の候補が表示されます。</p>
+<p>今回はここから「本文」を選択します。なお「本文」は仮の設定のため後程変更します。</p>
+<p class="image-container"><img style="width: 601.70px" src="img/160f926f035253ef.png"></p>
+<p>最初のステップを登録した時点で保存が可能になるため、ここで一度保存しておきます。</p>
+<p>(以降、こまめに保存するようにしてください。)</p>
+<p class="image-container"><img style="width: 601.70px" src="img/2e2ae40dcb474801.png"></p>
+<p>フローの名前は画面右上から変更が可能です。</p>
+<p>(ここでは「Twilio受付テスト」に変更します。)</p>
+<p class="image-container"><img style="width: 601.70px" src="img/b8ef5c006d3d409b.png"></p>
+<p>ステップの名前はステップタイトルバー右側の「...」から「名前の変更」を選択することで変更が可能です。</p>
+<p>以降「変数の初期化」がもう一度出てくるため、このステップの名前を「変数の初期化(id)」に変更しておきます。</p>
+<p class="image-container"><img style="width: 601.70px" src="img/f1d0205c1c5085f7.png"></p>
+<p>一つ前のステップ「HTTP要求の受信時」を選択し編集画面を開きます。</p>
+<p>この中の要求本文のJSONスキーマの設定を行います。</p>
+<p>今回の仕組みでTwilioから送信される処理要求は「JSON」という形式で送られてきます。</p>
+<p>この送られてきたJSONのデータのスキーマ(型)を定義しなければPowerAutomate側で情報を扱うことができません。</p>
+<p class="image-container"><img style="width: 601.70px" src="img/613a8ef58cfc64ac.png"></p>
+<p>要求本文のJSONスキーマの欄に以下のテキストをコピー&amp;ペーストしてください。</p>
+<pre><code>{
+    &#34;type&#34;: &#34;object&#34;,
+    &#34;properties&#34;: {
+        &#34;id&#34;: {
+            &#34;type&#34;: &#34;string&#34;
+        },
+        &#34;quantity&#34;: {
+            &#34;type&#34;: &#34;string&#34;
+        }
+    }
+}</code></pre>
+<p class="image-container"><img style="width: 601.70px" src="img/ebb444258180c222.png"></p>
+<p>この作業でTwilioから送信されるJSONデータを認識することができるようになりました。</p>
+<p>再び「変数を初期化(id)」を選択し編集画面を開きます。</p>
+<p>値の欄の「本文」を一旦消し、再び選択肢を確認すると「id」と「quantity」が追加されています。</p>
+<p>ここでは「id」を取得したいため「id」をセットします。</p>
+<p class="image-container"><img style="width: 601.70px" src="img/dbba9629503f1d0d.png"></p>
+<p>「新しいステップ」から再び「変数を初期化」を選択します。</p>
+<p>ここでは名前を「quantity」、種類を「文字列」とします。</p>
+<p>また、ステップ名を「変数を初期化する(quantity)」に変更しておきます。</p>
+<p>値の欄には「quantity」をセットします。</p>
+<p class="image-container"><img style="width: 601.70px" src="img/2ff9cb6737c0df81.png"></p>
+<p>「新しいステップ」から「項目の作成」と検索します。</p>
+<p>するとSharePointのアイコンで「項目の作成」と表示されますので、そちらを選択します。</p>
+<p class="image-container"><img style="width: 601.70px" src="img/5670c7068a6bdc30.png"></p>
+<p>サイトのアドレス欄を選択すると、ご自身の権限で選択できるSharePointのサイトがドロップダウンリストに表示されます。先ほど作成したサイトを選択してください。</p>
+<p>次にリスト名の欄を選択すると、先ほど選択したサイト内にあるリストがドロップダウンリストで表示されますので、先ほど作成したリストを選択してください。</p>
+<p>リストを選択することでリストの項目がリスト名の下に追加されます。</p>
+<p>各項目の値は候補の一覧の「変数」から選択してください。</p>
+<p>(Title＝id、必要通数＝quantity)</p>
+<p>なお、「HTTP要求の受信時」と書かれた項目の下にも同じ名前の値が表示されていますので間違いのないよう注意してください。</p>
+<p class="image-container"><img style="width: 601.70px" src="img/bfabf9ec12de464a.png"></p>
+<p>設定は以上となりますので、ここで保存してください。</p>
+<p>最後に、再度「HTTP要求の受信時」を選択し、&#39;HTTP POSTのURL&#39;に記載されているURLをコピーしてどこかに控えておいてください。(コピーはURL欄右側にボタンがあります。)</p>
+<p class="image-container"><img style="width: 601.70px" src="img/4c7b45f2b4d06937.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="ハンズオン② - Twilioの設定" duration="0">
+        <p>TwilioのStudioを開き、新しいフローを作成します。</p>
+<p>※ハンズオン名は「KTLハンズオン2」などとしておきます。</p>
+<p>※それ以外の流れについてはハンズオン①のときと同じです。</p>
+<p class="image-container"><img style="width: 601.70px" src="img/1dcd3d5a0dac5a65.png"></p>
+<p>まずは冒頭のアナウンスをSay/Playでセットします。</p>
+<p>(例では「こちらは証明書再発行受付センターです」とアナウンスさせています)</p>
+<p class="image-container"><img style="width: 444.53px" src="img/6b094363271a750f.png"></p>
+<p>次にgatherをセットし、ユーザーからの入力を受付られるようにします。</p>
+<p>(例では「再発行を希望される証明書の番号を入力し、最後にシャープを選択してください」とアナウンスさせています)</p>
+<p class="image-container"><img style="width: 601.70px" src="img/96bc05451cde7c4c.png"></p>
+<p>splitを挿入しgather_1で入力された内容を一旦受け取ります。</p>
+<p>(このあともう一度gatherで入力を受け付けるため、gather_1に対する処理はここでは行ません。)</p>
+<p class="image-container"><img style="width: 601.70px" src="img/7dbc6dc740826ac4.png"></p>
+<p>再びgatherを挿入し、必要通数の入力を求めます。</p>
+<p>(例では「再発行を希望される通数を入力し、最後にシャープを選択してください」とアナウンスさせています。)</p>
+<p class="image-container"><img style="width: 601.70px" src="img/49305caba2a504c5.png"></p>
+<p>直前のsplit_1からgather_2への繋ぎは(split_1の&#39;New&#39;から登録)、「Is Not Blank」(何らかの入力があれば)「gather_2」(gather_2の処理へ進む)と設定しています。</p>
+<p class="image-container"><img style="width: 601.70px" src="img/2e2053bed5a71d98.png"></p>
+<p>splitを挿入し、gather_2の情報を受け取ります。</p>
+<p class="image-container"><img style="width: 601.70px" src="img/2d27ba69dcd29247.png"></p>
+<p>‘Make HTTP Request&#39;の項目をドラッグ&amp;ドロップでsplit_2へ移動させます。</p>
+<p class="image-container"><img style="width: 601.70px" src="img/3266d8d6923f3073.png"></p>
+<p>REQUEST URL に先ほどPower Automateの操作の最後に控えたURLを入力します。</p>
+<p>CONTENT TYPEは「Application/JSON」を選択(これでJSONでリクエストを飛ばします。)</p>
+<p>REQUEST BODYには以下をコピー&amp;ペーストしてください。</p>
+<pre><code>{
+&#34;id&#34;: &#34;&#123;&#123;widgets.gather_1.Digits}} &#34;,
+&#34;quantity&#34;: &#34;&#123;&#123;widgets.gather_2.Digits}}&#34;
+}</code></pre>
+<p class="image-container"><img style="width: 601.70px" src="img/448010f9cee0221d.png"></p>
+<p>split_2からhttp_1への繋ぎはsplit_1からgather_2への繋ぎと同様、「Is Not Blank」「http_1」とセットしてください。</p>
+<p>http_1が成功した時/失敗した時の処理をSay/Playで設定します。</p>
+<p>(ここではSuccessの際に「申請を受け付けました。</p>
+<p>証明書は一週間を目処にお送りします。</p>
+<p>万が一届かない場合は、大変お手数ですが、電話番号、神戸、ぜろななはち、いちにいさん、しいごおろくななまで、お問い合わせください。</p>
+<p>ご利用いただきありがとうございました。</p>
+<p>」と、Failの際に「申請の受け付けに失敗しました。大変申し訳ありませんが、再度おかけ直しください。」とアナウンスさせています)</p>
+<p class="image-container"><img style="width: 601.70px" src="img/643b42fade56ec44.png"></p>
+<p>入力誤り等も考慮し全体を組むとこんな感じになります。</p>
+<p class="image-container"><img style="width: 601.70px" src="img/e206ae3cb08ff14f.png"><img style="width: 601.70px" src="img/e092b862acee8cd1.png"></p>
+<p>Editor画面右上の「Publish」を選択し、設定を保存します。</p>
+<p>今の状態では、ハンズオン①が電話番号と紐づいているため、最初に電話番号とフローを紐付けたときと同じ要領でハンズオン②のフローに紐付け直した上でテストを行ってください。</p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>
